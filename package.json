@@ -1,0 +1,23 @@
+{
+  "name": "softap-setup-js",
+  "version": "1.0.0",
+  "description": "Node Client for SoftAP Setup",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/spark/softap-setup-js.git"
+  },
+  "author": "Emily Rose <nexxy@spark.io>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/spark/softap-setup-js/issues"
+  },
+  "homepage": "https://github.com/spark/softap-setup-js",
+  "dependencies": {
+    "nconf": "^0.7.1",
+    "node-rsa": "^0.2.23"
+  }
+}
