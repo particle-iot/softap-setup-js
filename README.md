@@ -58,7 +58,7 @@ sap.connect({
 	ssid: "NAME-OF-NETWORK",
 	security: "<TYPE OF SECURITY>"
 })
-
+```
 
 ### Security types
 
