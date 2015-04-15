@@ -26,8 +26,8 @@ or by using the environment variables listed below.
 
 Defining either of the following environment variables will override defaults.json:
 
-SOFTAP_HOST (defaults to 192.168.0.1)
-SOFTAP_PORT (defaults to 5609)
+* SOFTAP_HOST (defaults to 192.168.0.1)
+* SOFTAP_PORT (defaults to 5609)
 
 
 ###  Options object
