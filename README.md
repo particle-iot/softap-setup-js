@@ -64,15 +64,29 @@ function callback(err, dat) {
 	console.log("Device ID: %s, claimed: %s", dat.id, dat.claimed ? "yes" : "no");
 };
 ```
-The above code will attempt to retrieve the device information from a device in SoftAP mode (assuming the system running this code is connected to a device in SoftAP mode), with the default configuration (192.168.0.1:5609). When the underlying request is successfully fulfilled, the callback is called with no error parameter (null), and a result object containing the `id` of the device as a string of hex, as well as the `claimed` status as a boolean value, like so:
+The above code will attempt to retrieve the device information from the device (assuming the system running this code is connected to the device in SoftAP mode), with the default configuration (192.168.0.1:5609). When the underlying request is successfully fulfilled, the callback is called with no error parameter (null), and a result object containing the `id` of the device as a string of hex, as well as the `claimed` status as a boolean value, like so:
 
 ```json
 { "id": "STRINGOFHEXREPRESENTINGYOURDEVICEIDHERE", "claimed": false }
 ```
 
+### Obtaining the Device's Public Key
+
+The public key must be obtained from the device before it can be successfully configured. This is due to the fact that the public key is used to encrypt the passphrase for any AP that is configured to use security (see below). If you do not already know the public key of the device, you may request it from the device with the following command:
+
+#### Example
+```js
+var sap = new SoftAPSetup();
+sap.publicKey(callback);
+function callback(err, dat) {
+	if (err) { throw err; }
+	console.log(dat);
+};
+```
+
 ### Connecting to an Access Point
 
-While connected to the device in SoftAP mode, the following code snippet will store the provided details on the device, and cause it to attempt to connect to the AP you specify. If it is unsuccessful, it will return to 'listening' mode so you may reconnect to its SoftAP and try again.
+While connected to the device in SoftAP mode, the following code snippet will store the provided details on the device, and cause it to attempt to connect to the AP you specify. If it is unsuccessful; it will return to SoftAP mode shortly thereafter, so you may reconnect to its SoftAP and try again.
 
 #### Example
 ```js
@@ -103,5 +117,5 @@ Valid security types are as follows:
 
 ### AP Password Security
 
-It's worth noting that this library uses the public key of the device to encrypt any AP passwords that are specified when configuring and connecting. 
+It's worth noting that this library uses the public key of the device to encrypt any AP passwords that are sent when configuring and connecting your device. 
 
