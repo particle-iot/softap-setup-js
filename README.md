@@ -84,19 +84,48 @@ function callback(err, dat) {
 };
 ```
 
-### Connecting to an Access Point
+### Scanning for Nearby Access Points
 
-While connected to the device in SoftAP mode, the following code snippet will store the provided details on the device, and cause it to attempt to connect to the AP you specify. If it is unsuccessful; it will return to SoftAP mode shortly thereafter, so you may reconnect to its SoftAP and try again.
+While connected to the device in SoftAP mode, it is possible to request a list of access points that have been detected in the area. This is done by way of the `scan` command. This command is one of the few commands that will typically take more than a few hundred milliseconds to complete. When executed, the device will listen for access points which are broadcasting their SSID. Important to note here is that it's not possible to detect networks which don't broadcast their SSID. You can still configure a non-broadcast network manually (see below).
+
+### Example
+
+```js
+var sap = new SoftAPSetup();
+sap.scan(callback);
+function callback(err, dat) {
+	if(err) { throw err; }
+	console.log("Networks Identified:");
+	console.log(dat);
+};
+```
+
+### Configuring the Device for a Selected Access Point
+
+The following code snippet will store the provided details on the device, and cause it to attempt to connect to the AP you specify. If it is unsuccessful; it will return to SoftAP mode shortly thereafter, so you may reconnect to it and try again.
 
 #### Example
 ```js
 var sap = new SoftAPSetup();
-sap.connect({
+sap.configure({
 	ssid: "<NETWORK NAME>",
 	security: "<SECURITY TYPE (see below)>",
 	password: "[PASSWORD]",
 	channel: "<CHANNEL>"
 }, callback);
+```
+
+### Connecting to a Previously Configured Access Point
+
+Once you have successfully issued a `configure` command, it's now only a matter of giving the device the go-ahead to actually connect. As you may have guessed, this is done via the `connect` command. It takes only a callback parameter, and will always execute "successfully". Since there is no way to verify that the provided configuration is correct until a connection attempt is made; you will need to verify that the device is able to successfully connect to the cloud (most likely via an API request to the cloud to check for the presence of the device ID that was just configured).
+
+### Example
+```js
+var sap = new SoftAPSetup();
+sap.connect(callback);
+function callback(err, dat) {
+	console.log("Device is attempting to connect to the AP...");
+};
 ```
 
 ### Wireless Security Types
@@ -110,8 +139,7 @@ Valid security types are as follows:
 5. "wpa_aes" — WPA with AES
 6. "wpa2_tkip" - WPA2 with TKIP
 7. "wpa2_aes" — WPA2 with AES
-8. "wpa2" or "wpa2_mixed" — WPA2 AES & TKIP
-
+8. "wpa2_mixed" — WPA2 AES & TKIP
 
 ## Notes
 
