@@ -20,7 +20,7 @@ function SoftAPSetup(opts) {
 	this.port = config.get('port');
 	this.host = config.get('host');
 
-	this.__publicKey = new rsa();
+	this.__publicKey;
 
 };
 
@@ -65,7 +65,9 @@ SoftAPSetup.prototype.publicKey = function publicKey(cb) {
 			return cb(new Error('Received non-zero response code'));
 		}
 		var buff = new Buffer(dat.b, 'hex');
-		this.__publicKey.importKey(buff.slice(22), 'pkcs1-public-der');
+		this.__publicKey = new rsa(buff.slice(22), 'pkcs1-public-der', {
+			encryptionScheme: 'pkcs1'
+		})
 		cb(null, this.__publicKey.exportKey('pkcs8-public'));
 	};
 	return sock;
