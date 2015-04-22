@@ -133,7 +133,7 @@ SoftAPSetup.prototype.configure = function configure(opts, cb) {
 
 	if(securePass) { apConfig.pwd = securePass; }
 
-	var sock = this.__sendCommand({ name : 'configure-ap', body: apConfig }, cb);
+	var sock = this.__sendCommand({ name: 'configure-ap', body: apConfig }, cb);
 
 	return sock;
 };
