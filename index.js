@@ -128,7 +128,7 @@ SoftAPSetup.prototype.configure = function configure(opts, cb) {
 		idx: 0,
 		ssid: opts.ssid,
 		sec: securityTable[opts.security],
-		ch: opts.channel
+		ch: parseInt(opts.channel)
 	};
 
 	if(securePass) { apConfig.pwd = securePass; }
