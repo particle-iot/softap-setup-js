@@ -66,7 +66,7 @@ SoftAPSetup.prototype.publicKey = function publicKey(cb) {
 		}
 		var buff = new Buffer(dat.b, 'hex');
 		this.__publicKey.importKey(buff.slice(22), 'pkcs1-public-der');
-		cb(null, this.__publicKey.exportKey('pkcs1-public'));
+		cb(null, this.__publicKey.exportKey('pkcs8-public'));
 	};
 	return sock;
 };
