@@ -2,12 +2,20 @@ var SoftAPSetup = require('../index');
 var sap = new SoftAPSetup();
 
 console.log("Requesting public key...");
-sap.publicKey(configure);
+sap.publicKey(scan);
+
+function scan(err, dat) {
+
+	if(err) { throw err; }
+	console.log("Received public key. Scanning for APs...");
+	sap.scan(configure);
+}
 
 function configure(err, dat) {
 
 	if(err) { throw err; }
-	console.log("Received public key. Configuring device...");
+	console.log("Scanned APs. Configuring device...");
+	console.log(dat);
 
 	sap.configure({
 		ssid: 'test'
