@@ -107,7 +107,7 @@ SoftAPSetup.prototype.configure = function configure(opts, cb) {
 		}
 		opts.ssid = opts.name;
 	}
-	if(!opts.channel) { throw new Error('Must specify which channel to use'); }
+
 	if((opts.enc || opts.sec) && !opts.security) {
 		opts.security = opts.sec || opts.enc;
 	}
