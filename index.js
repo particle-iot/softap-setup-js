@@ -122,7 +122,7 @@ SoftAPSetup.prototype.configure = function configure(opts, cb) {
 		if(opts.pass && !opts.password) {
 			opts.password = opts.pass;
 		}
-		securePass = this.__publicKey.encrypt(opts.password, 'hex').toUpperCase();
+		securePass = this.__publicKey.encrypt(opts.password, 'hex');
 	}
 	var apConfig = {
 		idx: 0,
