@@ -90,7 +90,11 @@ SoftAPSetup.prototype.setClaimCode = function(code, cb) {
 	if(!code || typeof code !== "string") {
 		throw new Error('Must provide claim code string as first parameter');
 	}
-
+	var claim = {
+		k: "cc"
+		, v: code
+	};
+	var sock = this.__sendCommand({ name: 'set', body: claim }, cb);
 };
 
 SoftAPSetup.prototype.configure = function configure(opts, cb) {
