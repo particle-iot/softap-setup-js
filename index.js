@@ -27,7 +27,7 @@ function SoftAPSetup(opts) {
 	this.port = config.get('port');
 	this.host = config.get('host');
 
-	this.__publicKey;
+	this.__publicKey = undefined;
 
 };
 
