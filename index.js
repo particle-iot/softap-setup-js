@@ -5,6 +5,13 @@ var util = require('util');
 var config = require('./config');
 var rsa = require('node-rsa');
 
+// hashtag lazyJS
+function is(cb) {
+
+	if (cb && typeof cb == 'function') { return true }
+	throw new Error('Invalid callback function provided.');
+};
+
 function SoftAPSetup(opts) {
 
 	if(opts && typeof opts == 'object') {
@@ -26,18 +33,21 @@ function SoftAPSetup(opts) {
 
 SoftAPSetup.prototype.scan = function scan(cb) {
 
+	is(cb);
 	var sock = this.__sendCommand('scan-ap', cb);
 	return sock;
 };
 
 SoftAPSetup.prototype.connect = function connect(cb) {
 
+	is(cb);
 	var sock = this.__sendCommand('connect-ap', cb);
 	return sock;
 };
 
 SoftAPSetup.prototype.deviceInfo = function deviceInfo(cb) {
 
+	is(cb);
 	var sock = this.__sendCommand('device-id', response.bind(this));
 	function response(err, dat) {
 
@@ -56,6 +66,7 @@ SoftAPSetup.prototype.deviceInfo = function deviceInfo(cb) {
 
 SoftAPSetup.prototype.publicKey = function publicKey(cb) {
 
+	is(cb);
 	var sock = this.__sendCommand('public-key', response.bind(this));
 	function response(err, dat) {
 
@@ -75,6 +86,7 @@ SoftAPSetup.prototype.publicKey = function publicKey(cb) {
 
 SoftAPSetup.prototype.setClaimCode = function(code, cb) {
 
+	is(cb);
 	if(!code || typeof code !== "string") {
 		throw new Error('Must provide claim code string as first parameter');
 	}
@@ -83,6 +95,7 @@ SoftAPSetup.prototype.setClaimCode = function(code, cb) {
 
 SoftAPSetup.prototype.configure = function configure(opts, cb) {
 
+	is(cb);
 	var securityTable = {
 		"open": 0,
 		"none": 0,
@@ -175,7 +188,7 @@ SoftAPSetup.prototype.__sendCommand = function(cmd, cb) {
 		if(!cmd.name) { throw new Error('Command object has no name property'); }
 	}
 	else { throw new Error('Invalid command'); }
-	if(!cb || typeof cb !== 'function') { throw new Error('Invalid callback'); }
+	is(cb);
 
 	var sock = this.__getSocket(connected, onData);
 	function connected() {
@@ -212,6 +225,7 @@ SoftAPSetup.prototype.__sendCommand = function(cmd, cb) {
 
 SoftAPSetup.prototype.version = function(cb) {
 
+	is(cb);
 	var sock = this.__sendCommand('version', cb);
 	return sock;
 };
