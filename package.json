@@ -1,5 +1,5 @@
 {
-  "name": "softap-setup-js",
+  "name": "softap-setup",
   "version": "1.0.0",
   "description": "Node Client for SoftAP Setup",
   "main": "index.js",
