@@ -4,7 +4,7 @@ var config = nconf.file({
 	file: 'defaults.json',
 	dir: __dirname,
 	search: true
-}).env();
+}).env().argv();
 
 Object.keys(config.get()).filter(function (key) {
 	return !!key.match(/^SOFTAP_.*$/)
