@@ -172,7 +172,7 @@ SoftAPSetup.prototype.__getSocket = function __getSocket(connect, data, error) {
 	if(errorMessage) { throw new Error(errorMessage); }
 
 	var sock = net.createConnection(this.port, this.host);
-	if(!error) { error = function(err) { console.log(err); } }
+	if(!error) { error = function(err) { throw err; } }
 
 	sock.setTimeout(this.timeout);
 
