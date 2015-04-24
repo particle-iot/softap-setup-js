@@ -1,21 +1,41 @@
 var SoftAPSetup = require('../index');
 var sap = new SoftAPSetup();
 
-console.log("Requesting public key...");
-sap.publicKey(scan);
+console.log("Obtaining device information...");
+sap.deviceInfo(claim);
+
+function claim(err, dat) {
+
+	console.log(dat);
+	console.log("-------");
+	console.log("Obtained device information. Setting claim code...");
+	sap.setClaimCode("wat", key);
+}
+
+function key(err, dat) {
+
+	if (err) { throw err; }
+	console.log(dat);
+	console.log("-------");
+	console.log("Requesting public key...");
+	sap.publicKey(scan);
+};
 
 function scan(err, dat) {
 
 	if(err) { throw err; }
+	console.log(dat);
+	console.log("-------");
 	console.log("Received public key. Scanning for APs...");
 	sap.scan(configure);
-}
+};
 
 function configure(err, dat) {
 
 	if(err) { throw err; }
-	console.log("Scanned APs. Configuring device...");
 	console.log(dat);
+	console.log("-------");
+	console.log("Scanned APs. Configuring device...");
 
 	sap.configure({
 		ssid: 'test'
