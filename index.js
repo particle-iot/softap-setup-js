@@ -207,7 +207,6 @@ SoftAPSetup.prototype.__sendCommand = function(cmd, cb) {
 		else {
 			send = util.format("%s\n0\n\n", cmd.name);
 		}
-		console.log(send);
 		sock.write(send);
 	};
 	function onData(dat) {
