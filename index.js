@@ -95,6 +95,8 @@ SoftAPSetup.prototype.setClaimCode = function(code, cb) {
 		, v: code
 	};
 	var sock = this.__sendCommand({ name: 'set', body: claim }, cb);
+
+	return sock;
 };
 
 SoftAPSetup.prototype.configure = function configure(opts, cb) {
