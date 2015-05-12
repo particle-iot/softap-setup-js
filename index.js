@@ -1,9 +1,22 @@
-	module.exports = SoftAPSetup;
+module.exports = SoftAPSetup;
 
 var net = require('net');
 var util = require('util');
 var config = require('./config');
 var rsa = require('node-rsa');
+
+var securityTable = {
+	"open": 0,
+	"none": 0,
+	"wep_psk": 1,
+	"wep_shared": 0x8001,
+	"wpa_tkip": 0x00200002,
+	"wpa_aes": 0x00200004,
+	"wpa2_aes": 0x00400004,
+	"wpa2_tkip": 0x00400002,
+	"wpa2_mixed": 0x00400006,
+	"wpa2": 0x00400006
+};
 
 // hashtag lazyJS
 function is(cb) {
@@ -102,18 +115,7 @@ SoftAPSetup.prototype.setClaimCode = function(code, cb) {
 SoftAPSetup.prototype.configure = function configure(opts, cb) {
 
 	is(cb);
-	var securityTable = {
-		"open": 0,
-		"none": 0,
-		"wep_psk": 1,
-		"wep_shared": 0x8001,
-		"wpa_tkip": 0x00200002,
-		"wpa_aes": 0x00200004,
-		"wpa2_aes": 0x00400004,
-		"wpa2_tkip": 0x00400002,
-		"wpa2_mixed": 0x00400006,
-		"wpa2": 0x00400006
-	};
+
 	var securePass = undefined;
 
 	if(!this.__publicKey) {
@@ -236,4 +238,15 @@ SoftAPSetup.prototype.version = function(cb) {
 	is(cb);
 	var sock = this.__sendCommand('version', cb);
 	return sock;
+};
+
+SoftAPSetup.prototype.securityLookup = function(dec) {
+
+	var match = null;
+	Object.keys(securityTable).forEach(function(key) {
+		if(parseInt(dec) == securityTable[key]) {
+			match = key;
+		}
+	});
+	return match;
 };
