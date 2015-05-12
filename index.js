@@ -145,10 +145,14 @@ SoftAPSetup.prototype.configure = function configure(opts, cb) {
 		}
 		securePass = this.__publicKey.encrypt(opts.password, 'hex');
 	}
+	if(typeof opts.security === "string") {
+		opts.security = securityTable[opts.security];
+	}
+
 	var apConfig = {
 		idx: 0,
 		ssid: opts.ssid,
-		sec: securityTable[opts.security],
+		sec: opts.security,
 		ch: parseInt(opts.channel)
 	};
 
