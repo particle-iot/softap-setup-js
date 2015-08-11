@@ -3,10 +3,11 @@ var emulator = require('softap-emulator-js');
 var assert = require('assert');
 var domain = require('domain');
 var mocha = require('mocha');
+var rsa = require('node-rsa');
 var net = require('net');
 
 function noop() { };
-
+const TEST_KEY = '30818902818100a633b9fdee23da72b0d40c4669eaf8101f0157cb971d8d16a5f1a91379a0d59b48acc887b9d15dd103225a583461abfe8c6008bb03d74d58c3d50fecd89244cf4c42269808fe5646a2eaca7a8ee14ba0d1921bd4e3ebd47d7c9552b07fc93ad31d4543b927956b170a4c53f34886f45c48dcfbce18003cc99370bf61def099e90203010001';
 
 var testConfig = { host: '127.0.0.1', port: 5609 };
 var server;
@@ -193,7 +194,10 @@ describe('SoftAPSetup', function () {
 
 			var sap = new SoftAPSetup({ host: '127.0.0.1', port: 5609 });
 
-			sap.__publicKey = "fakekey";
+			sap.__publicKey = new rsa(new Buffer(TEST_KEY, 'hex'), 'pkcs1-public-der', {
+				encryptionScheme: 'pkcs1'
+			});
+
 			sap.configure(conf, function(err, dat) {
 				done();
 			});
