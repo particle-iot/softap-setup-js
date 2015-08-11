@@ -141,17 +141,6 @@ describe('SoftAPSetup', function () {
 		});
 	});
 
-	describe('#_set', function() {
-
-		it('Successfully sets a property', function (done) {
-
-			var sap = new SoftAPSetup();
-			sap._set();
-			done();
-
-		});
-	});
-
 	describe('#publicKey', function() {
 
 		it('Successfully retrieves what looks like a public key', function (done) {
