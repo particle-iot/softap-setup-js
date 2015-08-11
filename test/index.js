@@ -123,7 +123,7 @@ describe('SoftAPSetup', function () {
 			}
 			catch(e) {
 
-				assert.equal('Invalid callback', e.message);
+				assert.equal('Invalid callback function provided.', e.message);
 			}
 		});
 	});
@@ -181,7 +181,7 @@ describe('SoftAPSetup', function () {
 			}
 			catch (e) {
 
-				assert.equal('Cannot configure without publicKey of device', e.message);
+				assert.equal('Must retrieve public key of device prior to AP configuration', e.message);
 				done();
 			}
 			function cb(err, dat) {
