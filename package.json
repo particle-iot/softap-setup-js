@@ -10,7 +10,10 @@
     "type": "git",
     "url": "https://github.com/spark/softap-setup-js.git"
   },
-  "author": "Emily Rose <nexxy@spark.io>",
+  "author": {
+    "name": "Emily Rose",
+    "email": "nexxy@particle.io"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/spark/softap-setup-js/issues"
