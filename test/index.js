@@ -1,5 +1,5 @@
 var SoftAPSetup = require('../index');
-var emulator = require('softap-emulator');
+var emulator = require('softap-emulator-js');
 var assert = require('assert');
 var domain = require('domain');
 var mocha = require('mocha');
