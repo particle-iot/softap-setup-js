@@ -15,15 +15,15 @@ var test;
 
 describe('SoftAPSetup', function () {
 
-	// before(function (done) {
+	before(function (done) {
 
-	// 	server = new emulator();
-	// 	test = net.createServer(server.server()).listen(
-	// 		testConfig.port,
-	// 		testConfig.host, function () {
-	// 			done();
-	// 	});
-	// });
+		server = new emulator();
+		test = net.createServer(server.server()).listen(
+			testConfig.port,
+			testConfig.host, function () {
+				done();
+		});
+	});
 
 	describe('#__getSocket', function () {
 
