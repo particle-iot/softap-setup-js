@@ -203,6 +203,46 @@ SoftAPSetup.prototype.__getSocket = function __getSocket(connect, data, error) {
 	return sock;
 };
 
+SoftAPSetup.prototype.__httpRequest = function __httpRequest(cmd, data, error) {
+
+	var sock;
+	var verb;
+	var errorMessage = undefined;
+
+	if(!cmd || typeof cmd !== "object") {
+		errorMessage = "Invalid command object specified.";
+	}
+	if(errorMessage) { throw new Error(errorMessage); }
+
+	var uri = url.format({
+		protocol: this.protocol,
+		hostname: this.host,
+		pathname: cmd.name,
+		port: this.port
+	});
+
+	if((cmd.body) && typeof cmd.body === 'object') {
+		// POST
+		sock = request.post({
+			url: uri,
+			json: true,
+			body: JSON.stringify(cmd.body)
+		}, handler);
+	}
+	else {
+		// GET
+		sock = request(uri, handler);
+	}
+	function handler(err, res, body) {
+
+		if(err) { return error(err); }
+		if(!body) {
+			return error(new Error('No body returned in response.'));
+		}
+		data(body);
+	}
+};
+
 SoftAPSetup.prototype.__sendCommand = function(cmd, cb) {
 
 	if(typeof cmd == 'string') {
