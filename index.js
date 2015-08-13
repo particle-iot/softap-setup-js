@@ -245,6 +245,9 @@ SoftAPSetup.prototype.__httpRequest = function __httpRequest(cmd, data, error) {
 
 SoftAPSetup.prototype.__sendCommand = function(cmd, cb) {
 
+	var sock;
+	var protocol = this.protocol;
+
 	if(typeof cmd == 'string') {
 		cmd = { name : cmd, body : undefined };
 	}
@@ -254,10 +257,15 @@ SoftAPSetup.prototype.__sendCommand = function(cmd, cb) {
 	else { throw new Error('Invalid command'); }
 	is(cb);
 
-	var sock = this.__getSocket(connected, onData);
-	function connected() {
+	if(protocol == "http") {
+		sock = this.__httpRequest(cmd, onData, cb);
+	}
+	else {
+		sock = this.__getSocket(tcpConnected, onData);
+	}
 
-		var send;
+	function tcpConnected() {
+
 		if((cmd.body) && typeof cmd.body === 'object') {
 
 			var body = JSON.stringify(cmd.body);
@@ -265,24 +273,28 @@ SoftAPSetup.prototype.__sendCommand = function(cmd, cb) {
 			send = util.format("%s\n%s\n\n%s", cmd.name, length, body);
 		}
 		else {
+
 			send = util.format("%s\n0\n\n", cmd.name);
 		}
+
 		sock.write(send);
 	};
+
 	function onData(dat) {
-
-		try {
-			var json = JSON.parse(dat.toString());
+		if(dat instanceof Buffer || typeof dat === 'string') {
+			try {
+				var json = JSON.parse(dat.toString());
+			}
+			catch (e) {
+				return cb(new Error('Invalid JSON received from device.'));
+			}
 		}
-		catch (e) {
-
-			return cb(new Error('Invalid JSON received from device.'));
+		else if(typeof dat === 'object') {
+			var json = dat;
 		}
 
-		//TODO: Parse the return data, which really only needs to send the results, or error.
 		cb(null, json);
 	};
-
 	return sock;
 };
 
