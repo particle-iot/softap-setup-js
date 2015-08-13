@@ -2,7 +2,7 @@ var SoftAPSetup = require('../index');
 var config = require('../config');
 var path = require('path');
 
-var sap = new SoftAPSetup();
+var sap = new SoftAPSetup({ protocol: 'http', port: 80 });
 
 if(!config.get('ssid')) {
 
