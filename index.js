@@ -37,15 +37,24 @@ function SoftAPSetup(opts) {
 		});
 	}
 
+	this.protocol = config.get('protocol');
 	this.keepAlive = config.get('keep_alive');
 	this.noDelay = config.get('no_delay');
 	this.timeout = config.get('timeout');
 
-	this.port = config.get('port');
 	this.host = config.get('host');
+	this.port = config.get('port');
+
+	if(!this.protocol) {
+		this.protocol = config.get('default_protocol');
+	}
+	if(!this.port) {
+		this.port = defaults.available_protocols[this.protocol].port;
+	}
 
 	this.__publicKey = undefined;
 
+	return this;
 };
 
 SoftAPSetup.prototype.scan = function scan(cb) {
