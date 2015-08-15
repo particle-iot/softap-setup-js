@@ -1,7 +1,6 @@
 module.exports = SoftAPSetup;
 
 var net = require('net');
-var url = require('url');
 var util = require('util');
 var config = require('./config');
 var defaults = require('./config/defaults');
@@ -212,12 +211,12 @@ SoftAPSetup.prototype.__httpRequest = function __httpRequest(cmd, data, error) {
 	}
 	if(errorMessage) { throw new Error(errorMessage); }
 
-	var uri = url.format({
-		protocol: this.protocol,
+	var opts = {
+		method: 'GET',
+		path: '/' + cmd.name,
 		hostname: this.host,
-		pathname: cmd.name,
 		port: this.port
-	});
+	};
 
 	if((cmd.body) && typeof cmd.body === 'object') {
 		// POST
