@@ -14,7 +14,7 @@
     "name": "Emily Rose",
     "email": "nexxy@particle.io"
   },
-  "license": "ISC",
+  "license": "LGPL",
   "bugs": {
     "url": "https://github.com/spark/softap-setup-js/issues"
   },
