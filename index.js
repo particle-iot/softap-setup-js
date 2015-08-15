@@ -204,7 +204,7 @@ SoftAPSetup.prototype.__getSocket = function __getSocket(connect, data, error) {
 SoftAPSetup.prototype.__httpRequest = function __httpRequest(cmd, data, error) {
 
 	var sock;
-	var verb;
+	var payload;
 	var errorMessage = undefined;
 
 	if(!cmd || typeof cmd !== "object") {
