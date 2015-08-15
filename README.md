@@ -59,6 +59,23 @@ When instantiating a SoftAPSetup object, simply provide an options object with v
 
 ## Usage
 
+### Protocols
+
+This library supports both TCP and HTTP protocols for performing SoftAP setup. TCP is the default protocol. If you would like to use the HTTP protocol instead, simply override the `protocol` configuration parameter.
+
+#### Example:
+```js
+var SoftAPSetup = require('softap-setup');
+var sap = new SoftAPSetup({ protocol: 'http' });
+
+sap.deviceInfo(callback);
+function callback(err, dat) {
+	if (err) { throw err; }
+	console.log("Device ID: %s, claimed: %s", dat.id, dat.claimed ? "yes" : "no");
+};
+```
+The above code will substitute the standard TCP port 5609 for HTTP on port 80. All methods function exactly the same regardless of chosen protocol. TCP is still the recommended protocol unless browser compatibility is specifically required.
+
 ### Obtaining Device Information
 
 You may often find it necessary to query the ID and claim status of your device. This is accomplished with a single method: `deviceInfo`. This method takes a single argument, which should be a reference to a callback function with the standard Node.js callback signature (example below).
