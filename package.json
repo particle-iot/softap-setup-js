@@ -22,7 +22,6 @@
   "dependencies": {
     "nconf": "^0.7.1",
     "node-rsa": "^0.2.23",
-    "request": "^2.60.0"
   },
   "devDependencies": {
     "mocha": "^2.2.4",

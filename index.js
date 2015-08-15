@@ -5,8 +5,6 @@ var url = require('url');
 var util = require('util');
 var config = require('./config');
 var defaults = require('./config/defaults');
-var request = require('request');
-
 var rsa = require('node-rsa');
 
 var securityTable = {
