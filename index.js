@@ -65,7 +65,7 @@ SoftAPSetup.prototype.scan = function scan(cb) {
 SoftAPSetup.prototype.connect = function connect(cb) {
 
 	is(cb);
-	var sock = this.__sendCommand('connect-ap', cb);
+	var sock = this.__sendCommand({ name: 'connect-ap', body: { idx: 0 } }, cb);
 	return sock;
 };
 
