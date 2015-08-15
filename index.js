@@ -224,18 +224,22 @@ SoftAPSetup.prototype.__httpRequest = function __httpRequest(cmd, data, error) {
 		opts.headers = { 'Content-Length': payload.length };
 		opts.method = 'POST';
 	}
-	else {
-		// GET
-		sock = request(uri, handler);
-	}
-	function handler(err, res, body) {
 
-		if(err) { return error(err); }
-		if(!body) {
-			return error(new Error('No body returned in response.'));
-		}
-		data(body);
-	}
+	sock = http.request(opts, function responseHandler(res) {
+		var results = '';
+		res.on('data', function dataHandler(chunk) {
+			if(chunk) { results += chunk.toString(); }
+		});
+		res.on('end', function () {
+			data(results);
+		});
+	});
+
+	sock.on('error', error);
+	payload && sock.write(payload);
+	sock.end();
+
+	return sock;
 };
 
 SoftAPSetup.prototype.__sendCommand = function(cmd, cb) {
