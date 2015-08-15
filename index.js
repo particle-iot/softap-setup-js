@@ -2,6 +2,7 @@ module.exports = SoftAPSetup;
 
 var net = require('net');
 var util = require('util');
+var http = require('http');
 var config = require('./config');
 var defaults = require('./config/defaults');
 var rsa = require('node-rsa');
