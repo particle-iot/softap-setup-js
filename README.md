@@ -25,10 +25,11 @@ If you wish to override these settings, please see below for usage information o
 
 ### Environment Variables
 
-Defining either of the following environment variables will override defaults.json:
+Defining the following environment variables will override defaults.json:
 
-* SOFTAP_HOST (defaults to 192.168.0.1)
+* SOFTAP_HOST (defaults to '192.168.0.1')
 * SOFTAP_PORT (defaults to 5609)
+* SOFTAP_PROTOCOL (defaults to 'tcp')
 
 
 ###  Options Object
@@ -40,10 +41,19 @@ When instantiating a SoftAPSetup object, simply provide an options object with v
 ```
 {
 	"host": "192.168.0.1",
-	"port": "5609",
 	"keep_alive": true,
-	"timeout": 10000,
-	"no_delay": true
+	"timeout": 2000,
+	"no_delay": true,
+	"default_channel": 6,
+	"default_protocol": "tcp",
+	"available_protocols": {
+		"tcp": {
+			"port": "5609"
+		},
+		"http": {
+			"port": "80"
+		}
+	}
 }
 ```
 
