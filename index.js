@@ -220,12 +220,9 @@ SoftAPSetup.prototype.__httpRequest = function __httpRequest(cmd, data, error) {
 	};
 
 	if((cmd.body) && typeof cmd.body === 'object') {
-		// POST
-		sock = request.post({
-			url: uri,
-			json: true,
-			body: JSON.stringify(cmd.body)
-		}, handler);
+		payload = JSON.stringify(cmd.body);
+		opts.headers = { 'Content-Length': payload.length };
+		opts.method = 'POST';
 	}
 	else {
 		// GET
