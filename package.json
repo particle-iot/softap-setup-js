@@ -2,9 +2,12 @@
   "name": "softap-setup",
   "version": "2.0.0",
   "description": "Node Client for SoftAP Setup",
-  "main": "index.js",
+  "main": "lib/SoftAPSetup.js",
   "scripts": {
-    "test": "mocha test/"
+    "compile": "babel --optional runtime -sd lib/ src/",
+    "test": "mocha test/ -R spec --recursive --compilers js:babel/register",
+    "prepublish": "npm run lint && npm run compile",
+    "lint": "eslint src/"
   },
   "repository": {
     "type": "git",
@@ -14,16 +17,23 @@
     "name": "Emily Rose",
     "email": "nexxy@particle.io"
   },
-  "license": "LGPL",
+  "license": "LGPL-3.0",
   "bugs": {
     "url": "https://github.com/spark/softap-setup-js/issues"
   },
   "homepage": "https://github.com/spark/softap-setup-js",
   "dependencies": {
-    "nconf": "^0.7.1",
-    "node-rsa": "^0.2.23"
+    "babel-runtime": "^5.8.20",
+    "node-rsa": "^0.2.23",
+    "request": "^2.60.0"
   },
   "devDependencies": {
+    "babel": "^5.8.21",
+    "babel-eslint": "^4.0.10",
+    "chai": "^2.1.2",
+    "eslint": "^1.1.0",
+    "eslint-config-airbnb": "0.0.7",
+    "eslint-plugin-react": "^3.2.3",
     "mocha": "^2.2.4",
     "softap-emulator-js": "^1.0.0"
   }
