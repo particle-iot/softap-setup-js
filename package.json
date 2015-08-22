@@ -14,6 +14,9 @@
     "name": "Emily Rose",
     "email": "nexxy@particle.io"
   },
+  "contributors": [
+    {"name": "Tom Distler", "email": "tom@brewsolid.com"}
+  ],
   "license": "LGPL",
   "bugs": {
     "url": "https://github.com/spark/softap-setup-js/issues"
