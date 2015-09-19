@@ -177,3 +177,41 @@ Valid security types are as follows:
 
 It's worth noting that this library uses the public key of the device to encrypt any AP passwords that are sent when configuring and connecting your device. 
 
+## Running in the Browser
+
+It's possible to do SoftAP configuration from within a web browser. However, you must first convert the SoftAP code (and all of it's dependencies) from a Node.js module into a single javascript file.
+
+### Browserify
+
+Install browserify:
+```js
+npm install -g browserify
+```
+From the softap-setup-js code directory, run:
+```js
+browserify softap.js -s SoftAPSetup -o softap-browser.js
+```
+This will create a browser-friendly ```softap-browser.js``` file that exports the ```SoftAPSetup``` object. The only difference with the browser version of this object is that it does *NOT* support reading the configuration from a file. All other methods described above will work.
+
+**NOTE:** *Only the "http" protocol works in the browser. "tcp" will fail because the browser does not allow direct access to sockets.*
+
+#### Example:
+```js
+<!doctype html>
+<html lang="en">
+<head></head>
+<body>
+  <script src="softap-browser.js"></script>
+  <script> 
+    var sap = new SoftAPSetup();
+
+    sap.deviceInfo(callback);
+    function callback(err, dat) {
+	    if (err) { throw err; }
+	    console.log("Device ID: %s, claimed: %s", dat.id, dat.claimed ? "yes" : "no");
+    };
+  </script>
+ </body>
+ </html>
+```
+The above code will print the device info to the javascript console of the browser.
