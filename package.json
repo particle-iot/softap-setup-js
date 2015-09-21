@@ -17,7 +17,7 @@
   "contributors": [
     {"name": "Tom Distler", "email": "tom@brewsolid.com"}
   ],
-  "license": "LGPL",
+  "license": "LGPL-3.0",
   "bugs": {
     "url": "https://github.com/spark/softap-setup-js/issues"
   },
