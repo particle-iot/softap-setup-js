@@ -114,6 +114,21 @@ function callback(err, dat) {
 };
 ```
 
+### Setting the Device's Claim Code
+
+The device must be provided with a claim code before it can be registered to a user's account. This is a string that is typically provided by a call to the [Particle API](https://docs.particle.io/reference/api/#claim-a-device). Once such a claim code has been obtained, it can be provided to the device like so:
+
+#### Example
+```js
+var code = "somekindaclaimcode";
+var sap = newSoftAPSetup();
+sap.setClaimCode(code, callback);
+function callback(err, dat) {
+	if(err) { throw err; }
+	console.log(dat);
+};
+```
+
 ### Scanning for Nearby Access Points
 
 While connected to the device in SoftAP mode, it is possible to request a list of access points that have been detected in the area. This is done by way of the `scan` command. This command is one of the few commands that will typically take more than a few hundred milliseconds to complete. When executed, the device will listen for access points which are broadcasting their SSID. Important to note here is that it's not possible to detect networks which don't broadcast their SSID. You can still configure a non-broadcast network manually (see below).
