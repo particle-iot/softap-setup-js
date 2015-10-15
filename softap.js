@@ -238,7 +238,15 @@ SoftAP.prototype.__httpRequest = function __httpRequest(cmd, data, error) {
 
 	if((cmd.body) && typeof cmd.body === 'object') {
 		payload = JSON.stringify(cmd.body);
-		opts.headers = { 'Content-Length': payload.length };
+		// NOTE: 'Content-Type' is set here to make this a "simple" cross-site
+		// request, as per the HTTP CORS docs:
+		//   https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS#Simple_requests
+		// According to the spec, this means that POST can be made directly
+		// without an OPTIONS request being made first.
+		opts.headers = {
+			'Content-Length': payload.length,
+			'Content-Type': 'application/x-www-form-urlencoded'
+		};
 		opts.method = 'POST';
 	}
 
