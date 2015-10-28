@@ -16,7 +16,8 @@
     "email": "nexxy@particle.io"
   },
   "contributors": [
-    {"name": "Tom Distler", "email": "tom@brewsolid.com"}
+    {"name": "Tom Distler", "email": "tom@brewsolid.com"},
+    {"name": "Mark Solters", "email": "msolters@gmail.com"}
   ],
   "license": "LGPL-3.0",
   "bugs": {
