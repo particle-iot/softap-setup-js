@@ -17,7 +17,8 @@
   },
   "contributors": [
     {"name": "Tom Distler", "email": "tom@brewsolid.com"},
-    {"name": "Mark Solters", "email": "msolters@gmail.com"}
+    {"name": "Mark Solters", "email": "msolters@gmail.com"},
+    {"name": "Vishal Talwar", "email": "rawlatv@gmail.com"}
   ],
   "license": "LGPL-3.0",
   "bugs": {
