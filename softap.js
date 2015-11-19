@@ -233,7 +233,8 @@ SoftAP.prototype.__httpRequest = function __httpRequest(cmd, data, error) {
 		method: 'GET',
 		path: '/' + cmd.name,
 		hostname: this.host,
-		port: this.port
+		port: this.port,
+		protocol: this.protocol ? this.protocol + ":" : ''
 	};
 
 	if((cmd.body) && typeof cmd.body === 'object') {
