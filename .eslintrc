@@ -1,0 +1,7 @@
+{
+	"extends": "particle",
+	"env": {
+		"shared-node-browser": true,
+		"node": true
+	}
+}
