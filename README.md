@@ -13,30 +13,6 @@ npm install softap-setup
 
 ## Configuration
 
-Configuration options are specified in the following three ways:
-
-1. Defaults loaded from config/defaults.json
-2. SOFTAP_* environment variables specified
-3. Options object provided during instantiation
-
-
-### Configuration File
-
-The file located at `config/defaults.json` contains the most common SoftAP settings.
-If you wish to override these settings, please see below for usage information on environment variables and the options object.
-
-
-### Environment Variables
-
-Defining the following environment variables will override defaults.json:
-
-* SOFTAP_HOST (defaults to '192.168.0.1')
-* SOFTAP_PORT (defaults to 5609)
-* SOFTAP_PROTOCOL (defaults to 'tcp')
-
-
-###  Options Object
-
 When instantiating a SoftAPSetup object, simply provide an options object with values for the keys you would like to override.
 
 ### Defaults
@@ -44,19 +20,12 @@ When instantiating a SoftAPSetup object, simply provide an options object with v
 ```
 {
 	"host": "192.168.0.1",
-	"keep_alive": true,
+	"keepAlive": true,
 	"timeout": 2000,
-	"no_delay": true,
-	"default_channel": 6,
-	"default_protocol": "tcp",
-	"available_protocols": {
-		"tcp": {
-			"port": "5609"
-		},
-		"http": {
-			"port": "80"
-		}
-	}
+	"noDelay": true,
+	"channel": 6,
+	"protocol": "tcp",
+	"port": 5609 (will default to 80 if protocol = http and no port specified)
 }
 ```
 

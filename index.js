@@ -1,32 +1,39 @@
-module.exports = SoftAPSetup;
+'use strict';
 
-var config = require('./config');
-var defaults = require('./config/defaults');
-var softap = require('./softap');
+var HttpSoftAP = require('./lib/HttpSoftAP');
+var TcpSoftAP = require('./lib/TcpSoftAP');
 
-function SoftAPSetup(opts) {
+var defaultPortMapping = {
+	tcp: 5609,
+	http: 80
+};
 
-	if(opts && typeof opts == 'object') {
-		Object.keys(opts).forEach(function _loadOpts(key) {
-			config.set(key, opts[key]);
+function SoftAPSetup(options) {
+	var opts = {
+		host: '192.168.0.1',
+		keepAlive: true,
+		timeout: 2000,
+		noDelay: true,
+		channel: 6,
+		protocol: 'tcp'
+	};
+	if (options && typeof options == 'object') {
+		Object.keys(options).forEach(function _loadOpts(key) {
+			opts[key] = options[key];
 		});
 	}
 
-	var opts = {};
-	opts.protocol = config.get('protocol');
-	opts.keepAlive = config.get('keep_alive');
-	opts.noDelay = config.get('no_delay');
-	opts.timeout = config.get('timeout');
-
-	opts.host = config.get('host');
-	opts.port = config.get('port');
-
-	if(!opts.protocol) {
-		opts.protocol = config.get('default_protocol');
-	}
-	if(!opts.port) {
-		opts.port = defaults.available_protocols[opts.protocol].port;
+	if (!opts.port) {
+		opts.port = defaultPortMapping[opts.protocol];
 	}
 
-	return new softap(opts);
+	if (opts.protocol === 'tcp') {
+		return new TcpSoftAP(opts);
+	} else if (opts.protocol === 'http') {
+		return new HttpSoftAP(opts);
+	} else {
+		throw new Error('unknown protocol');
+	}
 };
+
+module.exports = SoftAPSetup;
