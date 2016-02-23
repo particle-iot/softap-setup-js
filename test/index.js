@@ -1,5 +1,6 @@
 'use strict';
 
+require('should');
 var SoftAPSetup = require('../index');
 var SoftAPEmulator = require('softap-emulator-js');
 var assert = require('assert');
@@ -27,7 +28,18 @@ describe('SoftAPSetup', function () {
 	describe('#deviceInfo', function() {
 		it('Successfully retrieves device info', function(done) {
 			var sap = new SoftAPSetup(testConfig);
-			sap.deviceInfo(done);
+			sap.deviceInfo(function(err, dat) {
+				if (err) {
+					return done(err);
+				}
+				try {
+					dat.should.have.property('id').be.a.String;
+					dat.should.have.property('claimed').be.Boolean;
+					done();
+				} catch (e) {
+					done(e);
+				}
+			});
 		});
 
 		it('Throws an error when given an invalid callback', function() {
@@ -43,14 +55,46 @@ describe('SoftAPSetup', function () {
 	describe('#scan', function() {
 		it('Successfully retrieves AP list', function (done) {
 			var sap = new SoftAPSetup(testConfig);
-			sap.scan(done);
+			sap.scan(function(err, dat) {
+				if (err) {
+					return done(err);
+				}
+				try {
+					dat.should.be.Array;
+					dat.should.matchAny(function(scan) {
+						scan.should.have.property('ssid').be.a.String;
+						scan.should.have.property('sec').be.a.Number;
+					});
+					done();
+				} catch (e) {
+					done(e);
+				}
+			});
 		});
 	});
 
 	describe('#publicKey', function() {
 		it('Successfully retrieves what looks like a public key', function (done) {
 			var sap = new SoftAPSetup(testConfig);
-			sap.publicKey(done);
+			sap.publicKey(function(err, key) {
+				if (err) {
+					return done(err);
+				}
+				try {
+					key.should.be.a.String;
+					key.should.startWith('-----BEGIN PUBLIC KEY-----\n');
+					done();
+				} catch (e) {
+					done(e);
+				}
+			});
+		});
+	});
+
+	describe('#setClaimCode', function() {
+		it('Successfully sets a claim code', function (done) {
+			var sap = new SoftAPSetup(testConfig);
+			sap.setClaimCode('asdfasdf', done);
 		});
 	});
 
@@ -64,14 +108,12 @@ describe('SoftAPSetup', function () {
 		it('Throws an error when called before publicKey is obtained', function (done) {
 			var sap = new SoftAPSetup({ host: '127.0.0.1', port: 5609 });
 			try {
-				sap.configure(conf, cb);
+				sap.configure(conf, function cb() {
+					done(new Error('Configure did not throw an error'));
+				});
 			} catch (e) {
 				assert.equal('Must retrieve public key of device prior to AP configuration', e.message);
 				done();
-			}
-
-			function cb() {
-				done(new Error('Configure did not throw an error'));
 			}
 		});
 

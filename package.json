@@ -45,6 +45,7 @@
     "eslint-config-particle": "^1.0.2",
     "istanbul": "^0.4.0",
     "mocha": "^2.2.4",
+    "should": "^8.2.2",
     "softap-emulator-js": "^1.0.0"
   }
 }
