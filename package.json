@@ -1,6 +1,6 @@
 {
   "name": "softap-setup",
-  "version": "3.0.2",
+  "version": "4.0.0",
   "description": "Node Client for SoftAP Setup",
   "main": "index.js",
   "browser": "./lib/HttpSoftAP.js",
