@@ -1,5 +1,9 @@
 # changelog
 
+## 4.0.1 - 26 Feb 2016
+
+* Explicitly specify 'http' as protocol
+
 ## 4.0.0 - 23 Feb 2016
 
 * Remove environment variable and file configuration options.

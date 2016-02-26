@@ -1,6 +1,6 @@
 {
   "name": "softap-setup",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Node Client for SoftAP Setup",
   "main": "index.js",
   "browser": "./lib/HttpSoftAP.js",
@@ -46,6 +46,6 @@
     "istanbul": "^0.4.0",
     "mocha": "^2.2.4",
     "should": "^8.2.2",
-    "softap-emulator-js": "^1.0.0"
+    "softap-emulator-js": "^1.0.1"
   }
 }
