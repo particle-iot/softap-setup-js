@@ -12,7 +12,7 @@ function SoftAPSetup(options) {
 	var opts = {
 		host: '192.168.0.1',
 		keepAlive: true,
-		timeout: 2000,
+		timeout: 8000,
 		noDelay: true,
 		channel: 6,
 		protocol: 'tcp'
