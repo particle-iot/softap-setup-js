@@ -85,7 +85,7 @@ function callback(err, dat) {
 
 ### Setting the Device's Claim Code
 
-The device must be provided with a claim code before it can be registered to a user's account. This is a string that is typically provided by a call to the [Particle API](https://docs.particle.io/reference/api/#claim-a-device). Once such a claim code has been obtained, it can be provided to the device like so:
+The device must be provided with a claim code before it can be registered to a user's account. This is a string that is typically provided by a call to the [Particle API](https://docs.particle.io/reference/api/#create-a-claim-code). Once such a claim code has been obtained, it can be provided to the device like so:
 
 #### Example
 ```js
