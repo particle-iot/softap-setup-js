@@ -35,6 +35,8 @@ When instantiating a SoftAPSetup object, simply provide an options object with v
 
 This library supports both TCP and HTTP protocols for performing SoftAP setup. TCP is the default protocol. If you would like to use the HTTP protocol instead, simply override the `protocol` configuration parameter.
 
+**!! HTTP mode unstable:** Due to a [firmware bug](https://github.com/spark/firmware/issues/937), the HTTP protocol is unreliable from most browsers. HTTP mode is not recommended at this time.
+
 #### Example:
 ```js
 var SoftAPSetup = require('softap-setup');
