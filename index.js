@@ -2,6 +2,7 @@
 
 var HttpSoftAP = require('./lib/HttpSoftAP');
 var TcpSoftAP = require('./lib/TcpSoftAP');
+var SoftAP = require('./lib/SoftAP.js');
 
 var defaultPortMapping = {
 	tcp: 5609,
@@ -9,19 +10,10 @@ var defaultPortMapping = {
 };
 
 function SoftAPSetup(options) {
-	var opts = {
-		host: '192.168.0.1',
-		keepAlive: true,
-		timeout: 8000,
-		noDelay: true,
-		channel: 6,
-		protocol: 'tcp'
-	};
-	if (options && typeof options == 'object') {
-		Object.keys(options).forEach(function _loadOpts(key) {
-			opts[key] = options[key];
-		});
-	}
+	var opts = SoftAP.defaultOptions();
+	opts.protocol = 'tcp';
+
+	SoftAP.assign(opts, options);
 
 	if (!opts.port) {
 		opts.port = defaultPortMapping[opts.protocol];
