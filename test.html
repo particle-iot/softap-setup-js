@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head></head>
+<body>
+  <p>softap test</p>
+  <script src="softap-browser.js"></script>
+  <script>
+      var ssid = 'your ssid here';
+      var password = 'your pwd here';
+      var security = 'your security here'; // e.g. 'wpa2_aes'
+    var sap = new SoftAPSetup();
+
+    function error(err, value) {
+        if (err) { throw err; }
+    }
+
+    sap.deviceInfo(function callback(err, dat) {
+	    if (err) { throw err; }
+	    console.log("Device ID: %s, claimed: %s", dat.id, dat.claimed ? "yes" : "no");
+
+        sap.publicKey(function (err) {
+            if (err) { throw err; }
+
+            var ap_config = {
+                ssid: ssid,
+                channel: 0,
+                security: security,
+                password: password
+            };
+
+            sap.configure(ap_config, function() {
+                if (err) { throw err; }
+                sap.connect(error);
+            });
+        });
+    });
+  </script>
+ </body>
+ </html>
+
