@@ -37,15 +37,18 @@
   },
   "homepage": "https://github.com/spark/softap-setup-js",
   "dependencies": {
-    "node-rsa": "^0.2.23"
+    "node-rsa": "^0.4.2"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "coveralls": "^2.11.4",
     "eslint": "^2.2.0",
     "eslint-config-particle": "^1.0.2",
     "istanbul": "^0.4.0",
-    "mocha": "^2.2.4",
+    "mocha": "^3.2.0",
     "should": "^8.2.2",
+    "sinon": "^1.17.7",
+    "sinon-chai": "^2.8.0",
     "softap-emulator-js": "^1.0.2"
   }
 }
