@@ -1,7 +1,7 @@
 'use strict';
 
 var SoftAPSetup = require('../index');
-var config = require('../config');
+var config = require('./config');
 var path = require('path');
 
 var sap = new SoftAPSetup({ protocol: 'http', port: 80 });
