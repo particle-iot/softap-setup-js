@@ -50,6 +50,6 @@
     "should": "^8.2.2",
     "sinon": "^1.17.7",
     "sinon-chai": "^2.8.0",
-    "softap-emulator-js": "^1.0.2"
+    "softap-emulator-js": "^1.0.3"
   }
 }
