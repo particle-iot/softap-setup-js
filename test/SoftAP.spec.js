@@ -1,12 +1,13 @@
+'use strict';
 
 require('should');
 
-const SoftAP = require('../lib/SoftAP.js');
-const sinon = require('sinon');
-const chai = require('chai');
-const sinonChai = require('sinon-chai');
+var SoftAP = require('../lib/SoftAP.js');
+var sinon = require('sinon');
+var chai = require('chai');
+var sinonChai = require('sinon-chai');
 chai.use(sinonChai);
-const expect = chai.expect;
+var expect = chai.expect;
 
 
 describe('softap', function() {
@@ -20,7 +21,7 @@ describe('softap', function() {
 		});
 
 		it('can be constructed with options overridden', function() {
-			var sut = new SoftAP({host:'abcd'});
+			var sut = new SoftAP({ host:'abcd' });
 			var defaults = SoftAP.defaultOptions();
 			sut.should.have.property('host').be.eql('abcd');
 			sut.should.have.property('keepAlive').be.eql(defaults.keepAlive);
@@ -31,12 +32,12 @@ describe('softap', function() {
 		it('converts the deviceID to lowercase', function() {
 			var sut = new SoftAP();
 			sut.__sendCommand = sinon.spy(function(command, cb) {
-				cb(undefined, {id:'ABCD', c:'1'});
+				cb(undefined, { id:'ABCD', c:'1' });
 			});
 
 			var cb = sinon.stub();
 			sut.deviceInfo(cb);
-			expect(cb).to.have.been.calledWith(null, {id:'abcd', claimed:true});
+			expect(cb).to.have.been.calledWith(null, { id:'abcd', claimed:true });
 		});
 	});
 

@@ -22,7 +22,7 @@ describe('SoftAPSetup', function () {
 			testConfig.port,
 			testConfig.host, function () {
 				done();
-		});
+			});
 	});
 
 	describe('#deviceInfo', function() {
