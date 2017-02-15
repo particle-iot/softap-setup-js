@@ -26,6 +26,6 @@ function SoftAPSetup(options) {
 	} else {
 		throw new Error('unknown protocol');
 	}
-};
+}
 
 module.exports = SoftAPSetup;
