@@ -159,7 +159,7 @@ Valid security types are as follows:
 
 ### AP Password Security
 
-It's worth noting that this library uses the public key of the device to encrypt any AP passwords that are sent when configuring and connecting your device. 
+It's worth noting that this library uses the public key of the device to encrypt any AP passwords that are sent when configuring and connecting your device.
 
 ## Running in the Browser
 
@@ -186,7 +186,7 @@ This will create a browser-friendly ```softap-browser.js``` file that exports th
 <head></head>
 <body>
   <script src="softap-browser.js"></script>
-  <script> 
+  <script>
     var sap = new SoftAPSetup();
 
     sap.deviceInfo(callback);
