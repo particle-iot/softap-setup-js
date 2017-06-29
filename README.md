@@ -129,6 +129,34 @@ sap.configure({
 }, callback);
 ```
 
+#### Example: WPA Enterprise with PEAP/MSCHAPv2 authentication
+```js
+var sap = new SoftAPSetup();
+sap.configure({
+    ssid: "<NETWORK NAME>",
+    security: "<SECURITY TYPE (see below)>",
+    username: "[USERNAME]",
+    password: "[PASSWORD]",
+    outer_identity: "[OUTER IDENTITY (optional)]",
+    ca: "[CA CERTIFICATE (in PEM format, optional)]",
+    channel: "<CHANNEL>"
+}, callback);
+```
+
+#### Example: WPA Enterprise with EAP-TLS authentication
+```js
+var sap = new SoftAPSetup();
+sap.configure({
+    ssid: "<NETWORK NAME>",
+    security: "<SECURITY TYPE (see below)>",
+    client_certificate: "[CLIENT CERTIFICATE (in PEM format)]",
+    private_key: "[PRIVATE KEY (in PEM format)]",
+    outer_identity: "[OUTER IDENTITY (optional)]",
+    ca: "[CA CERTIFICATE (in PEM format, optional)]",
+    channel: "<CHANNEL>"
+}, callback);
+```
+
 ### Connecting to a Previously Configured Access Point
 
 Once you have successfully issued a `configure` command, it's now only a matter of giving the device the go-ahead to actually connect. As you may have guessed, this is done via the `connect` command. It takes only a callback parameter, and will always execute "successfully". Since there is no way to verify that the provided configuration is correct until a connection attempt is made; you will need to verify that the device is able to successfully connect to the cloud (most likely via an API request to the cloud to check for the presence of the device ID that was just configured).
@@ -154,12 +182,22 @@ Valid security types are as follows:
 6. "wpa2_tkip" - WPA2 with TKIP
 7. "wpa2_aes" — WPA2 with AES
 8. "wpa2_mixed" — WPA2 AES & TKIP
+9. "wpa_enterprise_aes" — WPA Enterprise with AES
+10. "wpa_enterprise_tkip" — WPA Enterprise with TKIP
+11. "wpa2_enterprise_aes" — WPA2 Enterprise with AES
+12. "wpa2_enterprise_tkip" — WPA2 Enterprise with TKIP
+13. "wpa2_enterprise_mixed" — WPA2 Enterprise with AES/TKIP
+14. "wpa2_enterprise" — WPA2 Enterprise with AES/TKIP
 
 ## Notes
 
 ### AP Password Security
 
-It's worth noting that this library uses the public key of the device to encrypt any AP passwords that are sent when configuring and connecting your device. 
+It's worth noting that this library uses the public key of the device to encrypt any AP passwords that are sent when configuring and connecting your device.
+
+### EAP-TLS Private Key Security
+
+This library also uses the public key of the device and a random AES encryption key to encrypt the Private Key when configuring your device to connect to WPA Enterprise access point with EAP-TLS authentication.
 
 ## Running in the Browser
 
