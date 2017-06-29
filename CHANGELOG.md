@@ -1,5 +1,10 @@
 # changelog
 
+## 4.0.3 - 15 Feb 2017
+
+* Open a dummy socket connection on first TCP command to work around
+a firmware [glitch](https://github.com/spark/firmware/issues/1252)
+
 ## 4.0.2 - 15 Feb 2017
 
 * [#17](https://github.com/spark/softap-setup-js/pull/17) change license from LGPL to Apache 2.0
