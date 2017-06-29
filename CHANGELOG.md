@@ -1,8 +1,8 @@
 # changelog
 
-## 4.0.4 - 30 June 2017
+## 4.1.0 - 30 June 2017
 
-* Support for WPA Enterprise
+* Support for WPA Enterprise WiFi setup
 * Minimum version of node  bumped from 0.10 to 4. 
 
 ## 4.0.3 - 15 Feb 2017
