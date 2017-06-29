@@ -105,6 +105,11 @@ describe('SoftAPSetup', function () {
 			password: 'hi'
 		};
 
+		var confEnterprise = {
+			ssid: 'ent',
+			security: 'wpa2_enterprise'
+		}
+
 		it('Throws an error when called before publicKey is obtained', function (done) {
 			var sap = new SoftAPSetup({ host: '127.0.0.1', port: 5609 });
 			try {
@@ -125,6 +130,108 @@ describe('SoftAPSetup', function () {
 			});
 
 			sap.configure(conf, done);
+		});
+
+		it('Throws an error when security is set to Enterprise but no EAP type or wrong EAP type is provided', function(done) {
+			var sap = new SoftAPSetup({ host: '127.0.0.1', port: 5609 });
+
+			sap.__publicKey = new RSA(new Buffer(TEST_KEY, 'hex'), 'pkcs1-public-der', {
+				encryptionScheme: 'pkcs1'
+			});
+
+			try {
+				sap.configure(confEnterprise, function cb() {
+					done(new Error('Configure did not throw an error'));
+				});
+			} catch (e) {
+				assert.equal('Security is set to Enterprise, but no EAP type provided', e.message);
+			}
+
+			try {
+				var c = Object.assign({}, confEnterprise);
+				c.eap = 'leap';
+				sap.configure(c, function cb() {
+					done(new Error('Configure did not throw an error'));
+				});
+			} catch (e) {
+				assert.equal('Unknown EAP type provided', e.message);
+			}
+
+			done();
+		});
+
+		it('Throws an error when EAP is set to PEAP and no PEAP credentials are provided', function(done) {
+			var sap = new SoftAPSetup({ host: '127.0.0.1', port: 5609 });
+
+			sap.__publicKey = new RSA(new Buffer(TEST_KEY, 'hex'), 'pkcs1-public-der', {
+				encryptionScheme: 'pkcs1'
+			});
+
+			try {
+				var c = Object.assign({}, confEnterprise);
+				c.eap = 'peap';
+				sap.configure(c, function cb() {
+					done(new Error('Configure did not throw an error'));
+				});
+			} catch (e) {
+				assert.equal('PEAP credentials missing', e.message);
+			}
+
+			done();
+		});
+
+		it('Throws an error when EAP is set to EAP-TLS and no EAP-TLS credentials are provided', function(done) {
+			var sap = new SoftAPSetup({ host: '127.0.0.1', port: 5609 });
+
+			sap.__publicKey = new RSA(new Buffer(TEST_KEY, 'hex'), 'pkcs1-public-der', {
+				encryptionScheme: 'pkcs1'
+			});
+
+			try {
+				var c = Object.assign({}, confEnterprise);
+				c.eap = 'eap-tls';
+				sap.configure(c, function cb() {
+					done(new Error('Configure did not throw an error'));
+				});
+			} catch (e) {
+				assert.equal('EAP-TLS credentials missing', e.message);
+			}
+
+			done();
+		});
+
+		it('Successfully sends PEAP configuration details', function(done){
+			var sap = new SoftAPSetup({ host: '127.0.0.1', port: 5609 });
+
+			sap.__publicKey = new RSA(new Buffer(TEST_KEY, 'hex'), 'pkcs1-public-der', {
+				encryptionScheme: 'pkcs1'
+			});
+
+			var c = Object.assign({}, confEnterprise);
+			c.eap = 'peap';
+			c.username = 'username';
+			c.password = 'password';
+			c.outer_identity = 'anonymous';
+			c.ca = 'TESTCACERTIFICATE';
+
+			sap.configure(c, done);
+		});
+
+		it('Successfully sends EAP-TLS configuration details', function(done){
+			var sap = new SoftAPSetup({ host: '127.0.0.1', port: 5609 });
+
+			sap.__publicKey = new RSA(new Buffer(TEST_KEY, 'hex'), 'pkcs1-public-der', {
+				encryptionScheme: 'pkcs1'
+			});
+
+			var c = Object.assign({}, confEnterprise);
+			c.eap = 'eap-tls';
+			c.private_key = 'TESTPRIVATEKEY';
+			c.client_certificate = 'TESTCLIENTCERTIFICATE';
+			c.outer_identity = 'anonymous';
+			c.ca = 'TESTCACERTIFICATE';
+
+			sap.configure(c, done);
 		});
 	});
 
