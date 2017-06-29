@@ -1,5 +1,10 @@
 # changelog
 
+## 4.0.4 - 30 June 2017
+
+* Support for WPA Enterprise
+* Minimum version of node  bumped from 0.10 to 4. 
+
 ## 4.0.3 - 15 Feb 2017
 
 * Open a dummy socket connection on first TCP command to work around

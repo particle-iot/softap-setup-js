@@ -1,9 +1,11 @@
 {
   "name": "softap-setup",
-  "version": "4.0.3",
+  "version": "4.0.4",
   "description": "Node Client for SoftAP Setup",
   "main": "index.js",
-  "engines" : { "node" : ">=4" },
+  "engines": {
+    "node": ">=4"
+  },
   "browser": "./lib/HttpSoftAP.js",
   "scripts": {
     "test": "mocha test/",
