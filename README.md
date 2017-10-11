@@ -4,6 +4,7 @@
 # softap-setup-js
 Particle SoftAP Setup for JavaScript — Perform wireless setup of Particle devices with Node.js or a browser.
 
+See also [softap-setup-ts, a community-created Typescript port of the SoftAP Setup library](https://github.com/markterrill/softap-setup-ts).
 
 ## Installation
 
