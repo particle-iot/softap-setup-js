@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/spark/softap-setup-js.svg)](https://travis-ci.org/spark/softap-setup-js)
-[![Open Issues](https://img.shields.io/github/issues/spark/softap-setup-js.svg)](https://github.com/spark/softap-setup-js/issues)
+[![Open Issues](https://img.shields.io/github/issues/spark/softap-setup-js.svg)](https://github.com/particle-iot/softap-setup-js/issues)
 
 # softap-setup-js
 Particle SoftAP Setup for JavaScript — Perform wireless setup of Particle devices with Node.js or a browser.

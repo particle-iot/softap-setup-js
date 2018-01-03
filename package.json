@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/spark/softap-setup-js.git"
+    "url": "https://github.com/particle-iot/softap-setup-js.git"
   },
   "author": {
     "name": "Emily Rose",
@@ -37,9 +37,9 @@
   ],
   "license": "LGPL-3.0",
   "bugs": {
-    "url": "https://github.com/spark/softap-setup-js/issues"
+    "url": "https://github.com/particle-iot/softap-setup-js/issues"
   },
-  "homepage": "https://github.com/spark/softap-setup-js",
+  "homepage": "https://github.com/particle-iot/softap-setup-js",
   "dependencies": {
     "node-rsa": "^0.4.2"
   },
