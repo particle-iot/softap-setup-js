@@ -4,7 +4,7 @@
   "description": "Node Client for SoftAP Setup",
   "main": "index.js",
   "engines": {
-    "node": ">=4"
+    "node": ">=22"
   },
   "browser": "./lib/HttpSoftAP.js",
   "scripts": {
