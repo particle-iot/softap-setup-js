@@ -1,6 +1,3 @@
-[![Build Status](https://travis-ci.org/spark/softap-setup-js.svg)](https://travis-ci.org/spark/softap-setup-js)
-[![Open Issues](https://img.shields.io/github/issues/spark/softap-setup-js.svg)](https://github.com/spark/softap-setup-js/issues)
-
 # softap-setup-js
 Particle SoftAP Setup for JavaScript — Perform wireless setup of Particle devices with Node.js or a browser.
 
@@ -212,7 +209,7 @@ npm install -g browserify
 ```
 From the softap-setup-js code directory, run:
 ```js
-browserify index.js -s SoftAPSetup -o softap-browser.js
+browserify lib/browser.js -s SoftAPSetup -o softap-browser.js
 ```
 This will create a browser-friendly ```softap-browser.js``` file that exports the ```SoftAPSetup``` object. The only difference with the browser version of this object is that it does *NOT* support reading the configuration from a file. All other methods described above will work.
 
