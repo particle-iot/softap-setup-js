@@ -19,7 +19,7 @@ jobs:
           name: NPM install
           command: npm ci
       - run:
-          name: Run tests
+          name: Run lint
           command: npm run lint
       - run:
           name: Run tests
