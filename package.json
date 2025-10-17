@@ -1,5 +1,5 @@
 {
-  "name": "softap-setup",
+  "name": "@particle/softap-setup",
   "version": "4.1.1",
   "description": "Node Client for SoftAP Setup",
   "main": "./lib/browser.js",
