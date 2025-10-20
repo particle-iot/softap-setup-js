@@ -1,6 +1,6 @@
 {
   "name": "@particle/softap-setup",
-  "version": "4.1.1",
+  "version": "4.1.2",
   "description": "Node Client for SoftAP Setup",
   "main": "./lib/browser.js",
   "browser": "./lib/HttpSoftAP.js",
