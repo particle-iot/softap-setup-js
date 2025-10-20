@@ -12,10 +12,6 @@
     "test:cover": "nyc --all --include 'lib/**/*.js' --exclude 'test/' --reporter html --reporter lcov npm test",
     "lint": "eslint"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/spark/softap-setup-js.git"
-  },
   "author": {
     "name": "Emily Rose",
     "email": "nexxy@particle.io"
@@ -35,10 +31,7 @@
     }
   ],
   "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/spark/softap-setup-js/issues"
-  },
-  "homepage": "https://github.com/spark/softap-setup-js",
+  "homepage": "https://github.com/particle-iot/softap-setup-js",
   "dependencies": {
     "node-rsa": "^0.4.2"
   },
