@@ -1,21 +1,16 @@
 {
-  "name": "softap-setup",
+  "name": "@particle/softap-setup",
   "version": "4.1.1",
   "description": "Node Client for SoftAP Setup",
-  "main": "index.js",
-  "engines": {
-    "node": ">=4"
-  },
+  "main": "./lib/browser.js",
   "browser": "./lib/HttpSoftAP.js",
-  "scripts": {
-    "test": "mocha test/",
-    "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec test/ && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
-    "lint": "eslint -f unix **/*.js",
-    "lint:fix": "eslint --fix -f unix **/*.js"
+  "engines": {
+    "node": ">=22"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/spark/softap-setup-js.git"
+  "scripts": {
+    "test": "mocha --reporter spec --exit --check-leaks test/",
+    "test:cover": "nyc --all --include 'lib/**/*.js' --exclude 'test/' --reporter html --reporter lcov npm test",
+    "lint": "eslint"
   },
   "author": {
     "name": "Emily Rose",
@@ -36,23 +31,19 @@
     }
   ],
   "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/spark/softap-setup-js/issues"
-  },
-  "homepage": "https://github.com/spark/softap-setup-js",
+  "homepage": "https://github.com/particle-iot/softap-setup-js",
   "dependencies": {
     "node-rsa": "^0.4.2"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "coveralls": "^2.11.4",
-    "eslint": "^3.15.0",
-    "eslint-config-particle": "^1.0.2",
-    "istanbul": "^0.4.0",
-    "mocha": "^3.2.0",
-    "should": "^8.2.2",
-    "sinon": "^1.17.7",
-    "sinon-chai": "^2.8.0",
+    "chai": "^4.5.0",
+    "eslint": "^9.37.0",
+    "eslint-config-particle": "^3.0.2",
+    "nyc": "^17.1.0",
+    "mocha": "^7.2.0",
+    "should": "^13.2.3",
+    "sinon": "^7.5.0",
+    "sinon-chai": "^3.7.0",
     "softap-emulator-js": "^1.0.3"
   }
 }

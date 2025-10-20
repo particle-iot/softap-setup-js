@@ -1,7 +1,4 @@
-[![Build Status](https://travis-ci.org/spark/softap-setup-js.svg)](https://travis-ci.org/spark/softap-setup-js)
-[![Open Issues](https://img.shields.io/github/issues/spark/softap-setup-js.svg)](https://github.com/spark/softap-setup-js/issues)
-
-# softap-setup-js
+# @particle/softap-setup
 Particle SoftAP Setup for JavaScript — Perform wireless setup of Particle devices with Node.js or a browser.
 
 See also [softap-setup-ts, a community-created Typescript port of the SoftAP Setup library](https://github.com/markterrill/softap-setup-ts).
@@ -207,26 +204,26 @@ It's possible to do SoftAP configuration from within a web browser. However, you
 ### Browserify
 
 Install browserify:
-```js
+```bash
 npm install -g browserify
 ```
 From the softap-setup-js code directory, run:
-```js
-browserify index.js -s SoftAPSetup -o softap-browser.js
+```bash
+browserify lib/browser.js -s SoftAPSetup -o softap-browser.js
 ```
 This will create a browser-friendly ```softap-browser.js``` file that exports the ```SoftAPSetup``` object. The only difference with the browser version of this object is that it does *NOT* support reading the configuration from a file. All other methods described above will work.
 
 **NOTE:** *Only the "http" protocol works in the browser. "tcp" will fail because the browser does not allow direct access to sockets.*
 
 #### Example:
-```js
+```html
 <!doctype html>
 <html lang="en">
 <head></head>
 <body>
   <script src="softap-browser.js"></script>
   <script> 
-    var sap = new SoftAPSetup();
+    const sap = new SoftAPSetup();
 
     sap.deviceInfo(callback);
     function callback(err, dat) {

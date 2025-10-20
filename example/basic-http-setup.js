@@ -1,10 +1,10 @@
+/* eslint no-console: 'off' */
 'use strict';
+const SoftAPSetup = require('../lib');
+const config = require('./config');
+const path = require('path');
 
-var SoftAPSetup = require('../index');
-var config = require('./config');
-var path = require('path');
-
-var sap = new SoftAPSetup({ protocol: 'http', port: 80 });
+const sap = new SoftAPSetup({ protocol: 'http', port: 80 });
 
 if (!config.get('ssid')) {
 
@@ -68,7 +68,7 @@ function configure(err, dat) {
 
 }
 
-function connect(err, dat) {
+function connect(err, _dat) {
 
 	if (err) {
 		throw err;
@@ -78,7 +78,7 @@ function connect(err, dat) {
 	sap.connect(done);
 }
 
-function done(err, dat) {
+function done(err, _dat) {
 
 	if (err) {
 		throw err;

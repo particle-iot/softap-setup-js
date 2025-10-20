@@ -1,22 +1,21 @@
 'use strict';
-
 require('should');
-var SoftAPSetup = require('../index');
-var SoftAPEmulator = require('softap-emulator-js');
-var assert = require('assert');
+const SoftAPSetup = require('../lib/browser');
+const SoftAPEmulator = require('softap-emulator-js');
+const assert = require('assert');
 // var domain = require('domain');
-var RSA = require('node-rsa');
-var net = require('net');
+const RSA = require('node-rsa');
+const net = require('net');
 
 // function noop() { };
-var TEST_KEY = '30818902818100a633b9fdee23da72b0d40c4669eaf8101f0157cb971d8d16a5f1a91379a0d59b48acc887b9d15dd103225a583461abfe8c6008bb03d74d58c3d50fecd89244cf4c42269808fe5646a2eaca7a8ee14ba0d1921bd4e3ebd47d7c9552b07fc93ad31d4543b927956b170a4c53f34886f45c48dcfbce18003cc99370bf61def099e90203010001';
+const TEST_KEY = '30818902818100a633b9fdee23da72b0d40c4669eaf8101f0157cb971d8d16a5f1a91379a0d59b48acc887b9d15dd103225a583461abfe8c6008bb03d74d58c3d50fecd89244cf4c42269808fe5646a2eaca7a8ee14ba0d1921bd4e3ebd47d7c9552b07fc93ad31d4543b927956b170a4c53f34886f45c48dcfbce18003cc99370bf61def099e90203010001';
 
-var testConfig = { host: '127.0.0.1', port: 5609, timeout: 3000 };
-var server;
+const testConfig = { host: '127.0.0.1', port: 5609, timeout: 3000 };
+let server;
 
 describe('SoftAPSetup', function () {
 	before(function (done) {
-		var emu = new SoftAPEmulator();
+		const emu = new SoftAPEmulator();
 		server = net.createServer(emu.server());
 		server.listen(
 			testConfig.port,
@@ -27,7 +26,7 @@ describe('SoftAPSetup', function () {
 
 	describe('#deviceInfo', function() {
 		it('Successfully retrieves device info', function(done) {
-			var sap = new SoftAPSetup(testConfig);
+			const sap = new SoftAPSetup(testConfig);
 			sap.deviceInfo(function(err, dat) {
 				if (err) {
 					return done(err);
@@ -44,7 +43,7 @@ describe('SoftAPSetup', function () {
 
 		it('Throws an error when given an invalid callback', function() {
 			try {
-				var sap = new SoftAPSetup(testConfig);
+				const sap = new SoftAPSetup(testConfig);
 				sap.deviceInfo('callback');
 			} catch (e) {
 				assert.equal('Invalid callback function provided.', e.message);
@@ -54,7 +53,7 @@ describe('SoftAPSetup', function () {
 
 	describe('#scan', function() {
 		it('Successfully retrieves AP list', function (done) {
-			var sap = new SoftAPSetup(testConfig);
+			const sap = new SoftAPSetup(testConfig);
 			sap.scan(function(err, dat) {
 				if (err) {
 					return done(err);
@@ -75,7 +74,7 @@ describe('SoftAPSetup', function () {
 
 	describe('#publicKey', function() {
 		it('Successfully retrieves what looks like a public key', function (done) {
-			var sap = new SoftAPSetup(testConfig);
+			const sap = new SoftAPSetup(testConfig);
 			sap.publicKey(function(err, key) {
 				if (err) {
 					return done(err);
@@ -93,25 +92,25 @@ describe('SoftAPSetup', function () {
 
 	describe('#setClaimCode', function() {
 		it('Successfully sets a claim code', function (done) {
-			var sap = new SoftAPSetup(testConfig);
+			const sap = new SoftAPSetup(testConfig);
 			sap.setClaimCode('asdfasdf', done);
 		});
 	});
 
 	describe('#configure', function() {
-		var conf = {
+		const conf = {
 			ssid : 'hi',
 			security: 'wpa2',
 			password: 'hi'
 		};
 
-		var confEnterprise = {
+		const confEnterprise = {
 			ssid: 'ent',
 			security: 'wpa2_enterprise'
-		}
+		};
 
 		it('Throws an error when called before publicKey is obtained', function (done) {
-			var sap = new SoftAPSetup({ host: '127.0.0.1', port: 5609 });
+			const sap = new SoftAPSetup({ host: '127.0.0.1', port: 5609 });
 			try {
 				sap.configure(conf, function cb() {
 					done(new Error('Configure did not throw an error'));
@@ -123,7 +122,7 @@ describe('SoftAPSetup', function () {
 		});
 
 		it('Successfully sends configuration details', function (done) {
-			var sap = new SoftAPSetup({ host: '127.0.0.1', port: 5609 });
+			const sap = new SoftAPSetup({ host: '127.0.0.1', port: 5609 });
 
 			sap.__publicKey = new RSA(new Buffer(TEST_KEY, 'hex'), 'pkcs1-public-der', {
 				encryptionScheme: 'pkcs1'
@@ -133,7 +132,7 @@ describe('SoftAPSetup', function () {
 		});
 
 		it('Throws an error when security is set to Enterprise but no EAP type or wrong EAP type is provided', function(done) {
-			var sap = new SoftAPSetup({ host: '127.0.0.1', port: 5609 });
+			const sap = new SoftAPSetup({ host: '127.0.0.1', port: 5609 });
 
 			sap.__publicKey = new RSA(new Buffer(TEST_KEY, 'hex'), 'pkcs1-public-der', {
 				encryptionScheme: 'pkcs1'
@@ -148,7 +147,7 @@ describe('SoftAPSetup', function () {
 			}
 
 			try {
-				var c = Object.assign({}, confEnterprise);
+				const c = Object.assign({}, confEnterprise);
 				c.eap = 'leap';
 				sap.configure(c, function cb() {
 					done(new Error('Configure did not throw an error'));
@@ -161,14 +160,14 @@ describe('SoftAPSetup', function () {
 		});
 
 		it('Throws an error when EAP is set to PEAP and no PEAP credentials are provided', function(done) {
-			var sap = new SoftAPSetup({ host: '127.0.0.1', port: 5609 });
+			const sap = new SoftAPSetup({ host: '127.0.0.1', port: 5609 });
 
 			sap.__publicKey = new RSA(new Buffer(TEST_KEY, 'hex'), 'pkcs1-public-der', {
 				encryptionScheme: 'pkcs1'
 			});
 
 			try {
-				var c = Object.assign({}, confEnterprise);
+				const c = Object.assign({}, confEnterprise);
 				c.eap = 'peap';
 				sap.configure(c, function cb() {
 					done(new Error('Configure did not throw an error'));
@@ -181,14 +180,14 @@ describe('SoftAPSetup', function () {
 		});
 
 		it('Throws an error when EAP is set to EAP-TLS and no EAP-TLS credentials are provided', function(done) {
-			var sap = new SoftAPSetup({ host: '127.0.0.1', port: 5609 });
+			const sap = new SoftAPSetup({ host: '127.0.0.1', port: 5609 });
 
 			sap.__publicKey = new RSA(new Buffer(TEST_KEY, 'hex'), 'pkcs1-public-der', {
 				encryptionScheme: 'pkcs1'
 			});
 
 			try {
-				var c = Object.assign({}, confEnterprise);
+				const c = Object.assign({}, confEnterprise);
 				c.eap = 'eap-tls';
 				sap.configure(c, function cb() {
 					done(new Error('Configure did not throw an error'));
@@ -201,13 +200,13 @@ describe('SoftAPSetup', function () {
 		});
 
 		it('Successfully sends PEAP configuration details', function(done){
-			var sap = new SoftAPSetup({ host: '127.0.0.1', port: 5609 });
+			const sap = new SoftAPSetup({ host: '127.0.0.1', port: 5609 });
 
 			sap.__publicKey = new RSA(new Buffer(TEST_KEY, 'hex'), 'pkcs1-public-der', {
 				encryptionScheme: 'pkcs1'
 			});
 
-			var c = Object.assign({}, confEnterprise);
+			const c = Object.assign({}, confEnterprise);
 			c.eap = 'peap';
 			c.username = 'username';
 			c.password = 'password';
@@ -218,13 +217,13 @@ describe('SoftAPSetup', function () {
 		});
 
 		it('Successfully sends EAP-TLS configuration details', function(done){
-			var sap = new SoftAPSetup({ host: '127.0.0.1', port: 5609 });
+			const sap = new SoftAPSetup({ host: '127.0.0.1', port: 5609 });
 
 			sap.__publicKey = new RSA(new Buffer(TEST_KEY, 'hex'), 'pkcs1-public-der', {
 				encryptionScheme: 'pkcs1'
 			});
 
-			var c = Object.assign({}, confEnterprise);
+			const c = Object.assign({}, confEnterprise);
 			c.eap = 'eap-tls';
 			c.private_key = 'TESTPRIVATEKEY';
 			c.client_certificate = 'TESTCLIENTCERTIFICATE';
@@ -237,7 +236,7 @@ describe('SoftAPSetup', function () {
 
 	describe('#connect', function() {
 		it('Successfully sends command to connect', function (done) {
-			var sap = new SoftAPSetup({ host: '127.0.0.1', port: 5609 });
+			const sap = new SoftAPSetup({ host: '127.0.0.1', port: 5609 });
 			sap.connect(done);
 		});
 	});
